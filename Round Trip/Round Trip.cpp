@@ -12,11 +12,11 @@ void dfs(int index, int parent) {
 
 		for (int i : connections[index])
 		{
-			dfs(i, index);
+			if(i!=parent) dfs(i, index);
 		}
 	}
 	else {
-
+		//find circle
 	}
 }
 
