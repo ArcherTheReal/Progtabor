@@ -4,20 +4,38 @@ using namespace std;
 
 vector<vector<int>> connections;
 vector<int> parents;
+vector<int>circle;
 
+void circleFinder(int target, int index) {
+	circle.push_back(index);
+	if (target != parents[index]) {
+		circleFinder(target, parents[index]);
+	}
+	else {
+		circle.push_back(target);
+		int circ = circle.size();
+		cout << circ << endl;
+
+		for (int i : circle) {
+			cout << i << " ";
+		}
+		exit(0);
+	}
+}
 
 void dfs(int index, int parent) {
-	if (parents[index] == -1) {
 		parents[index] = parent;
 
 		for (int i : connections[index])
 		{
-			if(i!=parent) dfs(i, index);
+			if (parents[i] == -1) {
+				dfs(i, index);
+			}
+			else if (i != parent) {
+				circle.push_back(i);
+				circleFinder(i, index);
+			}
 		}
-	}
-	else {
-		//find circle
-	}
 }
 
 int main() {
@@ -34,11 +52,12 @@ int main() {
 		connections[b].push_back(a);
 	}
 
-	for (int i = 0; i < n; i++)
+	for (int i = 1; i <= n; i++)
 	{
 		if (parents[i] == -1) {
 			dfs(i, 0);
 		}
 	}
-
+	cout << "IMPOSSIBLE"<<endl;
+	return(0);
 }
