@@ -26,21 +26,6 @@ void bfs(int index) {
 				sor.push(i);
 				sor.pop();
 				visited[i] = 1;
-				if (i == n) {
-					int tracker=n;
-					while(tracker!=1){
-						route.push_back(tracker);
-						tracker = parent[tracker];
-					}
-					route.push_back(1);
-					sort(route.begin(), route.end());
-					cout << route.size() << endl;
-					for (int i : route) {
-						cout << i << " ";
-					}
-					exit(0);
-
-				}
 			}
 		}
 	}
@@ -60,4 +45,14 @@ int main()
 	}
 	sor.push(1);
 	bfs(1);
+
+	cout << dist[n]<<endl;
+	int tracker = 0;
+	cout << n << " ";
+	for (int i = 0; i < dist[n]; i++)
+	{
+		cout << parent[tracker]<<" ";
+		tracker = parent[tracker];
+	}
+
 }
